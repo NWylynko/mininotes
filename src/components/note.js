@@ -1,42 +1,39 @@
 import React, { useState } from 'react';
+import timeFormatter from '../tools/time'
+import TextareaAutosize from 'react-autosize-textarea';
 
-export default function Note() {
+export default function Note({ time, mode, proptext, style, hidden, cancelCallback, submitCallback }) {
 
-  // const testtext =  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed hendrerit ipsum eu vulputate commodo. Phasellus ac neque et sapien sagittis pretium non et velit. Nunc dui ipsum, fringilla a nulla auctor, condimentum efficitur erat. In congue ac nulla sollicitudin dictum. Sed interdum metus ipsum. Sed facilisis, purus non fringilla dictum, odio nibh varius neque, eget dignissim ante ligula at ante. Nunc non aliquet odio. Cras accumsan porta sapien in bibendum. Proin placerat eu lectus faucibus lobortis. Fusce vel risus ac mi aliquam porta non ac diam. Nulla dui nisi, luctus eget ante auctor, consequat semper tellus. Morbi felis erat, feugiat ut consectetur quis, commodo id erat. Pellentesque a egestas sapien. Proin aliquet blandit enim quis mollis."
-  const testtext = 'hey'
-
-  const [mode] = useState('edit')
-  const [text, setText] = useState(testtext)
-  const [noteHeight, setNoteHeight] = useState(customNoteHeight())
-
-  function customNoteHeight() {
-    if (text.length > 120) {
-      return(120 + (Math.floor((text.length - 120) / 16) * 16))
-    } else {
-      return(100)
-    }
-  }
+  const [text, setText] = useState(proptext)
 
   return (
-    <div style={{
-      border: '3px solid black',
-      padding: 10,
-      width: 300,
-      height: noteHeight,
-      borderRadius: 5,
-      
-    }}>
-      <div hidden={mode !== 'edit'}>
-        <textarea
-          style={{ fontSize: 16, width: 300, height: noteHeight, borderWidth: 0, resize: 'none', padding: 0, outline: 0 }}
-          value={text}
-          onChange={(e) => {setText(e.target.value); console.log(e.target.value.length); setNoteHeight(customNoteHeight())}}
-          autoFocus
-          
-        />
-      </div>
-      <div hidden={mode !== 'view'}>
-        <p style={{margin: 0, fontSize: 16,}}>{text}</p>
+    <div style={style} hidden={hidden}>
+      <div style={{
+        border: '3px solid black',
+        padding: 10,
+        width: 300,
+        height: 'auto',
+        borderRadius: 5,
+
+      }}>
+        <p style={{ color: 'grey', fontSize: 10, margin: 0 }}>{timeFormatter(time)}</p>
+        <div hidden={mode !== 'edit'}>
+          <TextareaAutosize
+            style={{ fontSize: 16, width: 300, borderWidth: 0, resize: 'none', padding: 0, outline: 0 }}
+            value={text}
+            onChange={(e) => { setText(e.target.value); }}
+            autoFocus
+            rows={2}
+            placeholder={'write something special'}
+          />
+          <button style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }} onClick={() => { submitCallback(text) }}><span role="img" alt="submit">✔️</span></button>
+          <button style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }} onClick={cancelCallback}><span role="img" alt="cancel">❌</span></button>
+        </div>
+
+        <div hidden={mode !== 'view'}>
+          <p style={{ margin: 0, fontSize: 16, }}>{text}</p>
+        </div>
+
       </div>
     </div>
   )

@@ -1,14 +1,19 @@
 import React from 'react';
 
-export default function MousePos({ children, setMousePos }) {
+export default function MousePos({ children, setMousePos, enabled }) {
 
-  function onMouseMove(e) {
-    setMousePos({ x: e.clientX, y: e.clientY });
+  function onMouseClick(e) {
+    if (enabled) {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    }
+    
   }
 
   return (
-    <div className="App" onMouseMove={onMouseMove.bind(this)}>
+    <div className="App" onMouseDown={onMouseClick}>
       {children}
     </div>
   );
 }
+
+// onMouseMove.bind(this)
