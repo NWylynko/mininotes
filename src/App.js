@@ -8,7 +8,7 @@ export default function App() {
 
   const [showBoard, setShowBoard] = useState(false)
 
-  firebase.auth().onAuthStateChanged(function(user) {
+  firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       // User is signed in.
       // var uid = user.uid;
@@ -27,12 +27,15 @@ export default function App() {
 
   if (showBoard) {
     return (
-      <Board/>
+      <Board />
     );
   } else {
     return (
-      <p>Loading...</p>
+      <>
+        <p>Loading...</p>
+        <p>v1.0.2</p>
+      </>
     )
   }
-  
+
 }
