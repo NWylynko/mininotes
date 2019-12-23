@@ -33,7 +33,7 @@ export default function App() {
     return (
       <>
         <p>Loading...</p>
-        <p>v1.0.2</p>
+        <p>v1.0.3</p>
       </>
     )
   }
