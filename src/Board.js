@@ -38,11 +38,15 @@ export default function Board() {
 
   function submitNote(text) {
     setShowNewNote(false)
-    console.log(text)
-    addNote(text, id, mousePos.x, mousePos.y)
+    // console.log(text)
+    if(text) {
+      addNote(text, id, mousePos.x, mousePos.y)
+    }
+
   }
 
   return (
+    <>
     <div onMouseDown={() => { setShowNewNote(true) }}>
       <MousePos setMousePos={setMousePos} enabled={!showNewNote}>
 
@@ -58,9 +62,11 @@ export default function Board() {
           cancelCallback={() => { setShowNewNote(false) }}
           submitCallback={submitNote}
         />
-        {dataList}
+        
       </MousePos>
+      
     </div>
-
+    {dataList}
+</>
   );
 }
