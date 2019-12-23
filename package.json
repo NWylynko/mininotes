@@ -1,6 +1,6 @@
 {
   "name": "mininotes",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -10,6 +10,7 @@
     "react": "^16.12.0",
     "react-autosize-textarea": "^7.0.0",
     "react-dom": "^16.12.0",
+    "react-helmet": "^5.2.1",
     "react-scripts": "3.3.0"
   },
   "scripts": {

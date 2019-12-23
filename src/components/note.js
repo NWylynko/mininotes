@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import timeFormatter from '../tools/time'
 import TextareaAutosize from 'react-autosize-textarea';
 
 export default function Note({ time, mode, proptext, style, hidden, cancelCallback, submitCallback }) {
 
   const [text, setText] = useState(proptext)
+
+  useEffect(() => {
+    if(hidden) {
+      setText('')
+    }
+  }, [hidden])
 
   return (
     <div style={style} hidden={hidden}>
@@ -26,8 +32,16 @@ export default function Note({ time, mode, proptext, style, hidden, cancelCallba
             rows={2}
             placeholder={'write something special'}
           />
-          <button style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }} onClick={() => { submitCallback(text) }}><span role="img" alt="submit">✔️</span></button>
-          <button style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }} onClick={cancelCallback}><span role="img" alt="cancel">❌</span></button>
+          <button 
+            style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }} 
+            onClick={() => { submitCallback(text) }}>
+            <span role="img" aria-label="submit">✔️</span>
+          </button>
+          <button 
+            style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }} 
+            onClick={cancelCallback}>
+            <span role="img" aria-label="cancel">❌</span>
+          </button>
         </div>
 
         <div hidden={mode !== 'view'}>

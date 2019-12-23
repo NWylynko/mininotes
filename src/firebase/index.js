@@ -1,11 +1,28 @@
-import * as firebase from 'firebase/app';
+import firebase from './fire';
 
-import "firebase/database";
-import "firebase/auth";
-//import "firebase/storage"
+// var database = firebase.database();
 
-import firebaseConfig from './config.json'; // file with firebase api 
+export function doAnonSignIn() {
+  firebase.auth().signInAnonymously().catch(function(error) {
+    console.log(error)
+  });
+}
 
-firebase.initializeApp(firebaseConfig);
+export function createNewBoard() {
 
-export default firebase
+}
+
+export function getNotes(id, callback) {
+  firebase.database().ref('board/' + id).on('value', (snapshot) => {
+    callback(snapshot.val())
+  });
+}
+
+export function addNote(text, id, x, y) {
+  firebase.database().ref('board/' + id).push({
+    text: text,
+    time: firebase.database.ServerValue.TIMESTAMP,
+    x, y
+  });
+}
+
