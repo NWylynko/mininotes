@@ -2,22 +2,39 @@ import React, { useState, useEffect } from 'react';
 import timeFormatter from '../tools/time'
 import TextareaAutosize from 'react-autosize-textarea';
 
+import { backgroundColor } from "../tools/colours"
+
 export default function Note({ time, mode, proptext, style, hidden, cancelCallback, submitCallback }) {
 
   const [text, setText] = useState(proptext)
 
   useEffect(() => {
-    if(hidden) {
+    if (hidden) {
       setText('')
     }
   }, [hidden])
+
+
+  function noteWidth() {
+    if (mode === 'view') {
+      if (text) {
+        if (text.length <= 35) {
+          return 'auto'
+        } else {
+          return 300
+        }
+      }
+    } else {
+      return 300
+    }
+  }
 
   return (
     <div style={style} hidden={hidden}>
       <div style={{
         border: '3px solid black',
         padding: 10,
-        width: 300,
+        width: noteWidth(),
         height: 'auto',
         borderRadius: 5,
 
@@ -25,20 +42,20 @@ export default function Note({ time, mode, proptext, style, hidden, cancelCallba
         <p style={{ color: 'grey', fontSize: 10, margin: 0 }}>{timeFormatter(time)}</p>
         <div hidden={mode !== 'edit'}>
           <TextareaAutosize
-            style={{ fontSize: 16, width: 300, borderWidth: 0, resize: 'none', padding: 0, outline: 0 }}
+            style={{ fontSize: 16, width: 300, borderWidth: 0, resize: 'none', padding: 0, outline: 0, backgroundColor }}
             value={text}
             onChange={(e) => { setText(e.target.value); }}
             autoFocus
             rows={2}
             placeholder={'write something special'}
           />
-          <button 
-            style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }} 
+          <button
+            style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }}
             onClick={() => { submitCallback(text) }}>
             <span role="img" aria-label="submit">✔️</span>
           </button>
-          <button 
-            style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }} 
+          <button
+            style={{ border: 0, padding: 4, margin: 2, borderRadius: 2, }}
             onClick={cancelCallback}>
             <span role="img" aria-label="cancel">❌</span>
           </button>

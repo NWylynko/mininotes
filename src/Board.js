@@ -50,10 +50,12 @@ export default function Board() {
 
   if (loading) {
     return (
-      <>
+      <div style={{
+        textAlign: "center"
+      }}>
         <p>Loading...</p>
-        <p>1.0.4</p>
-      </>
+        <p>1.0.5</p>
+      </div>
     )
   } else {
     return (

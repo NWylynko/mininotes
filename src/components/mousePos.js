@@ -10,7 +10,7 @@ export default function MousePos({ children, setMousePos, enabled }) {
   }
 
   return (
-    <div className="App" onMouseDown={onMouseClick}>
+    <div className="MousePos" onMouseDown={onMouseClick}>
       {children}
     </div>
   );
