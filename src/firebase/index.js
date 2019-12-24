@@ -19,7 +19,7 @@ export function onSignIn(success, error) {
 }
 
 export function createNewBoard() {
-  
+
 }
 
 export function getNotes(id, callback) {
@@ -38,8 +38,6 @@ export function addNote(text, id, x, y) {
   });
 }
 
-function sanitizeID(id) {
-  id = id.replace('/', '-')
-  if (!(id)) {id = 0}
-  return id
+export function sanitizeID(id) {
+  return id.replace('/', '-')
 }

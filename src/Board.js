@@ -62,7 +62,7 @@ export default function Board() {
       <>
         <div onMouseDown={() => { setShowNewNote(true) }}>
           <MousePos setMousePos={setMousePos} enabled={!showNewNote}>
-  
+
             <Note
               style={{
                 position: "absolute",
@@ -75,13 +75,13 @@ export default function Board() {
               cancelCallback={() => { setShowNewNote(false) }}
               submitCallback={submitNote}
             />
-  
+
           </MousePos>
-  
+
         </div>
         {dataList}
       </>
     );
   }
-  
+
 }
