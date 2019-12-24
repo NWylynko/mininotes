@@ -8,11 +8,14 @@ export default function Board() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [showNewNote, setShowNewNote] = useState(false)
   const [dataList, setDataList] = useState(null)
+  const [loading, setLoading] = useState(true)
 
   const id = window.location.pathname
 
   useEffect(() => {
     getNotes(id, (data) => {
+
+      setLoading(false)
 
       if (data) {
         let dataList = Object.values(data) // convert object into array of objects
@@ -39,34 +42,44 @@ export default function Board() {
   function submitNote(text) {
     setShowNewNote(false)
     // console.log(text)
-    if(text) {
+    if (text) {
       addNote(text, id, mousePos.x, mousePos.y)
     }
 
   }
 
-  return (
-    <>
-    <div onMouseDown={() => { setShowNewNote(true) }}>
-      <MousePos setMousePos={setMousePos} enabled={!showNewNote}>
-
-        <Note
-          style={{
-            position: "absolute",
-            top: mousePos.y,
-            left: mousePos.x,
-          }}
-          hidden={!showNewNote}
-          mode={'edit'}
-          time={Date.now()}
-          cancelCallback={() => { setShowNewNote(false) }}
-          submitCallback={submitNote}
-        />
-        
-      </MousePos>
-      
-    </div>
-    {dataList}
-</>
-  );
+  if (loading) {
+    return (
+      <>
+        <p>Loading...</p>
+        <p>1.0.4</p>
+      </>
+    )
+  } else {
+    return (
+      <>
+        <div onMouseDown={() => { setShowNewNote(true) }}>
+          <MousePos setMousePos={setMousePos} enabled={!showNewNote}>
+  
+            <Note
+              style={{
+                position: "absolute",
+                top: mousePos.y,
+                left: mousePos.x,
+              }}
+              hidden={!showNewNote}
+              mode={'edit'}
+              time={Date.now()}
+              cancelCallback={() => { setShowNewNote(false) }}
+              submitCallback={submitNote}
+            />
+  
+          </MousePos>
+  
+        </div>
+        {dataList}
+      </>
+    );
+  }
+  
 }

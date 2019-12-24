@@ -8,8 +8,18 @@ export function doAnonSignIn() {
   });
 }
 
-export function createNewBoard() {
+export function onSignIn(success, error) {
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      success(user)
+    } else {
+      error()
+    }
+  });
+}
 
+export function createNewBoard() {
+  
 }
 
 export function getNotes(id, callback) {
