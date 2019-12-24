@@ -33,7 +33,7 @@ export default function Note({ time, mode, proptext, propcolour = 'black', style
   return (
     <div style={style} hidden={hidden}>
       <div style={{
-        border: '3px solid black',
+        border: '3px solid ' + textColour,
         padding: 10,
         width: noteWidth(),
         height: 'auto',
