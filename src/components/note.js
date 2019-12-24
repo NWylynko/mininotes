@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import timeFormatter from '../tools/time'
 import TextareaAutosize from 'react-autosize-textarea';
 import { ColourCircleList } from './colourcircle'
@@ -63,7 +63,25 @@ export default function Note({ time, mode, proptext, propcolour = 'black', style
   )
 }
 
-function NewNote({ hidden, textColour, setTextColour, text, setText, submitCallback, cancelCallback}) {
+function NullFunc() {
+  //pass
+}
+
+function NewNote({ hidden, textColour, setTextColour, text, setText, submitCallback, cancelCallback=NullFunc}) {
+
+  const escFunction = useCallback((event) => {
+    if(event.key === 'Escape') {
+      cancelCallback()
+    }
+  }, [cancelCallback]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", escFunction, false);
+
+    return () => {
+      document.removeEventListener("keydown", escFunction, false);
+    };
+  }, [escFunction]);
 
   if (hidden) {
     return (null)

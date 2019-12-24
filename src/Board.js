@@ -55,7 +55,7 @@ export default function Board() {
         textAlign: "center"
       }}>
         <p>Loading...</p>
-        <p>1.0.6</p>
+        <p>1.0.7</p>
       </div>
     )
   } else {
