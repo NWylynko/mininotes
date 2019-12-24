@@ -29,10 +29,10 @@ export function getNotes(id, callback) {
   });
 }
 
-export function addNote(text, id, x, y) {
+export function addNote(text, colour, id, x, y) {
   id = sanitizeID(id)
   firebase.database().ref('board/' + id).push({
-    text: text,
+    text: text, colour,
     time: firebase.database.ServerValue.TIMESTAMP,
     x, y
   });

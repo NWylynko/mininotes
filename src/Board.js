@@ -32,6 +32,7 @@ export default function Board() {
             mode={'view'}
             time={item.time}
             proptext={item.text}
+            propcolour={item.colour}
           />
         ));
       }
@@ -39,11 +40,11 @@ export default function Board() {
     })
   }, [id])
 
-  function submitNote(text) {
+  function submitNote(text, colour) {
     setShowNewNote(false)
     // console.log(text)
     if (text) {
-      addNote(text, id, mousePos.x, mousePos.y)
+      addNote(text, colour, id, mousePos.x, mousePos.y)
     }
 
   }
@@ -54,7 +55,7 @@ export default function Board() {
         textAlign: "center"
       }}>
         <p>Loading...</p>
-        <p>1.0.5</p>
+        <p>1.0.6</p>
       </div>
     )
   } else {
