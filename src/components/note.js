@@ -3,8 +3,6 @@ import timeFormatter from '../tools/time'
 import TextareaAutosize from 'react-autosize-textarea';
 import { ColourCircleList } from './colourcircle'
 
-import { backgroundColor } from "../tools/colours"
-
 export default function Note({ time, mode, proptext, propcolour = 'black', style, hidden, cancelCallback, submitCallback }) {
 
   const [text, setText] = useState(proptext)
@@ -40,6 +38,7 @@ export default function Note({ time, mode, proptext, propcolour = 'black', style
         width: noteWidth(),
         height: 'auto',
         borderRadius: 5,
+        backgroundColor: 'white'
 
       }}>
         <p style={{ color: 'grey', fontSize: 10, margin: 0 }}>{timeFormatter(time)}</p>
@@ -67,13 +66,17 @@ function NullFunc() {
   //pass
 }
 
-function NewNote({ hidden, textColour, setTextColour, text, setText, submitCallback, cancelCallback=NullFunc}) {
+function NewNote({ hidden, textColour, setTextColour, text, setText, submitCallback=NullFunc, cancelCallback=NullFunc}) {
 
   const escFunction = useCallback((event) => {
     if(event.key === 'Escape') {
       cancelCallback()
     }
-  }, [cancelCallback]);
+
+    if (event.key === 'Enter') {
+      submitCallback(text, textColour)
+    }
+  }, [cancelCallback, submitCallback, text, textColour]);
 
   useEffect(() => {
     document.addEventListener("keydown", escFunction, false);
@@ -89,7 +92,7 @@ function NewNote({ hidden, textColour, setTextColour, text, setText, submitCallb
     return (
       <>
         <TextareaAutosize
-          style={{ color: textColour, fontSize: 16, width: 300, borderWidth: 0, resize: 'none', padding: 0, outline: 0, backgroundColor }}
+          style={{ color: textColour, fontSize: 16, width: 300, borderWidth: 0, resize: 'none', padding: 0, outline: 0 }}
           value={text}
           onChange={(e) => { setText(e.target.value); }}
           autoFocus

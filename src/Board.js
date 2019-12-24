@@ -55,12 +55,13 @@ export default function Board() {
         textAlign: "center"
       }}>
         <p>Loading...</p>
-        <p>1.0.7</p>
+        <p>1.0.8</p>
       </div>
     )
   } else {
     return (
       <>
+      {dataList}
         <div onMouseDown={() => { setShowNewNote(true) }}>
           <MousePos setMousePos={setMousePos} enabled={!showNewNote}>
 
@@ -80,7 +81,7 @@ export default function Board() {
           </MousePos>
 
         </div>
-        {dataList}
+        
       </>
     );
   }
