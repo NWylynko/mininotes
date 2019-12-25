@@ -5,7 +5,7 @@ export default function ColourCircle({ style, colour, callback }) {
   return (
     <li style={style} className="row">
       <div style={{
-        borderRadius: '50%',
+        borderRadius: '33%',
         width: 20,
         height: 20,
         background: colour,
@@ -16,7 +16,7 @@ export default function ColourCircle({ style, colour, callback }) {
   )
 }
 
-const colours = ['black', '#40a4d8', '#33beb8', '#b3c500', '#ffcf00', '#f9a228', '#f6621f', '#db3838', '#ee657a', '#a363d9']
+export const colours = ['black', '#40a4d8', '#33beb8', '#b3c500', '#ffcf00', '#f9a228', '#f6621f', '#db3838', '#ee657a', '#a363d9']
 
 export function ColourCircleList({colourSelectCallback}) {
 
