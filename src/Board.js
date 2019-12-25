@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import MousePos from './components/mousePos'
 import Note from './components/note'
 import { addNote, getNotes } from "./firebase"
+import { id } from './tools/id';
 
 export default function Board() {
 
@@ -10,10 +11,8 @@ export default function Board() {
   const [dataList, setDataList] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  const id = window.location.pathname
-
   useEffect(() => {
-    getNotes(id, (data) => {
+    getNotes(id(), (data) => {
 
       setLoading(false)
 
@@ -38,13 +37,13 @@ export default function Board() {
       }
 
     })
-  }, [id])
+  }, [])
 
   function submitNote(text, colour) {
     setShowNewNote(false)
     // console.log(text)
     if (text) {
-      addNote(text, colour, id, mousePos.x, mousePos.y)
+      addNote(text, colour, id(), mousePos.x, mousePos.y)
     }
 
   }
@@ -61,7 +60,7 @@ export default function Board() {
   } else {
     return (
       <>
-      {dataList}
+        {dataList}
         <div onMouseDown={() => { setShowNewNote(true) }}>
           <MousePos setMousePos={setMousePos} enabled={!showNewNote}>
 
@@ -81,7 +80,7 @@ export default function Board() {
           </MousePos>
 
         </div>
-        
+
       </>
     );
   }

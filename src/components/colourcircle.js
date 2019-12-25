@@ -27,7 +27,7 @@ export function ColourCircleList({colourSelectCallback}) {
   })
 
   return (
-    <ul className="rows" style={{listStyleType: "none", margin: 0, padding: 0}}>
+    <ul className="rows" style={{listStyleType: "none", margin: -15, marginLeft: 0 , padding: 0}}>
       {colourPickerList}
     </ul>
   )

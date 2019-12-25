@@ -3,33 +3,49 @@ import './App.css';
 import Board from './Board'
 import { backgroundColor } from "./tools/colours"
 import { Helmet } from "react-helmet";
-
+import { feature, name, id } from './tools/id';
+import corkBackground from './imgs/cork.jpg';
 
 export default function App() {
 
-  function ID() {
-    const base = window.location.pathname.replace("/", "")
-
-    if (base) {
-      return base
-    } else {
-      return 'home'
-    }
-
-  }
+  console.log("feature: " + feature())
+  console.log("id: " + id())
+  console.log("name: " + name())
 
   return (
-    <div style={{
-      backgroundColor
-       }} className="App">
-
+    <Background feature={feature()}>
       <Helmet>
-        <title>MiniNotes - {ID()}</title>
+        <title>MiniNotes - {name() ? name() : 'home'}</title>
       </Helmet>
 
       <Board />
-    </div>
+    </Background>
 
   );
 
+}
+
+function Background({ feature, children }) {
+  switch (feature) {
+    case 'cork':
+      return (
+        <>
+          <div style={{
+            backgroundImage: `url(${corkBackground})`
+          }} className="App">
+            {children}
+          </div>
+        </>
+      )
+    default:
+      return (
+        <>
+          <div style={{
+            backgroundColor
+          }} className="App">
+            {children}
+          </div>
+        </>
+      )
+  }
 }

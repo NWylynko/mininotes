@@ -23,21 +23,15 @@ export function createNewBoard() {
 }
 
 export function getNotes(id, callback) {
-  id = sanitizeID(id)
   firebase.database().ref('board/' + id).on('value', (snapshot) => {
     callback(snapshot.val())
   });
 }
 
 export function addNote(text, colour, id, x, y) {
-  id = sanitizeID(id)
   firebase.database().ref('board/' + id).push({
     text: text, colour,
     time: firebase.database.ServerValue.TIMESTAMP,
     x, y
   });
-}
-
-export function sanitizeID(id) {
-  return id.replace('/', '-')
 }
